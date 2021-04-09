@@ -31,15 +31,18 @@ class Client:
       return -1
 
     logging.info(f'Changing {self.id} balance by {amount}')
-    self.amount += amount
+    self.balance += amount
 
     if destination != "same":
       logging.info(f'Sending money to client:{destination[0].clients[destination[1]].id}')
-      destination[0].clients[destination[1]].amount += abs(amount)
+      destination[0].clients[destination[1]].balance += abs(amount)
 
   def cash_transaction(self, amount):
     logging.info('Trying cash transaction')
     self.transaction(amount, 'same')
+
+  def get_balance(self):
+    return self.balance
 
 
 if __name__ == '__main__': 
@@ -55,3 +58,6 @@ if __name__ == '__main__':
   c2.cash_transaction(-100)
 
   c1.transaction(-100, (2,321))
+
+  print(c1.get_balance())
+  print(c2.get_balance())
